@@ -3,36 +3,36 @@
 
 using namespace std;
 
-void printVector(vector<int>&v)
+void printVector(vector<long long>&v)
 {
         printf("\n");
-    for(vector<int>::iterator it =v.begin();it != v.end();it ++)
+    for(vector<long long>::iterator it =v.begin();it != v.end();it ++)
     {
         printf("%d ",*it);
     }
         printf("\n");
 
 }
-void sortVector(vector<int>& v, int g)  
-{  
-    for (int i = 0; i < g - 1; i++)
-    {  
-        for (int j = 0; j < g - i - 1; j++) 
-        {  
-            if (v[j] > v[j + 1])  
-            {  
-                int temp = v[j]; 
-                v[j] = v[j + 1];  
-                v[j + 1] = temp; 
-            }  
-        }  
-    }  
-}
+// void sortVector(vector<int>& v, int g)  
+// {  
+//     for (int i = 0; i < g - 1; i++)
+//     {  
+//         for (int j = 0; j < g - i - 1; j++) 
+//         {  
+//             if (v[j] > v[j + 1])  
+//             {  
+//                 int temp = v[j]; 
+//                 v[j] = v[j + 1];  
+//                 v[j + 1] = temp; 
+//             }  
+//         }  
+//     }  
+// }
 
-void countLength(vector<int>&v,int height,int& tl)
+void countLength(vector<long long>&v,int height,long long& tl)
 {
     tl = 0;
-    int plus;
+    long long plus;
     plus = 0;
     for (int i = 0; i < v.size(); i++)
     {
@@ -51,31 +51,47 @@ void countLength(vector<int>&v,int height,int& tl)
         
     }
 }
+int findMax(vector<long long>v)
+{
+    long long max1;
+    for (int i = 0; i < v.size(); i++)
+    {
+        auto it = v.begin();
+        max1 = *it;
+        if(v[i] > max1)
+        {
+            max1 = v[i];
+        }
+    }
+    return max1 ;
+}
 
 int main()
 {
-    int n,m;
+    long long n;
+    long long m;
     cin >> n >> m;
-    vector<int>v1;//input
+    vector<long long>v1;//input
     for (int i = 0; i < n; i++)
     {
-        int temp;
+        long long temp;
         scanf("%d",&temp);
         v1.push_back(temp);
     }
-    sortVector(v1,n);//sort v1
-    // cout << "max" << v1.back();//print max of v1
+    // sortVector(v1,n);//sort v1
+    // cout << "max" << v1.back() << endl;//print max of v1
+    // cout << findMax(v1);
     // printVector(v1);//check v1
-    int tl = 0;//totalLength
-    int height = 0;
+    long long tl = 0;//totalLength
+    long long height = 0;
     countLength(v1,height,tl);//default length
     // cout << tl << endl;
-    for (height = 0; height < v1.back(); height = (height + v1.back()) /2 )
+    for (height = 0; height < findMax(v1); height = (height + findMax(v1)) /2 )
     {
         countLength(v1,height,tl);
         if (tl <= m)
         {
-            for (height; height < v1.back(); height--)
+            for (height; height < findMax(v1); height--)
             {
                 countLength(v1,height,tl);
                 if(tl >= m)
